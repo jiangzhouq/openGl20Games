@@ -48,26 +48,30 @@ class MySurfaceView extends GLSurfaceView
         	//触控横向位移太阳绕y轴旋转
             float dx = x - mPreviousX;//计算触控笔X位移 
             yAngle += dx * TOUCH_SCALE_FACTOR;//设置太阳绕y轴旋转的角度
-            float sunx=(float)(Math.cos(Math.toRadians(yAngle))*100);
-            float sunz=-(float)(Math.sin(Math.toRadians(yAngle))*100);
-            MatrixState.setLightLocationSun(sunx,5,sunz);  
-            
-            //触控纵向位移摄像机绕x轴旋转 -90～+90
             float dy = y - mPreviousY;//计算触控笔Y位移 
             xAngle += dy * TOUCH_SCALE_FACTOR;//设置太阳绕y轴旋转的角度
-            if(xAngle>90)
-            {
-            	xAngle=90;
-            }
-            else if(xAngle<-90)
-            {
-            	xAngle=-90;
-            }
-            float cy=(float) (7.2*Math.sin(Math.toRadians(xAngle)));
-            float cz=(float) (7.2*Math.cos(Math.toRadians(xAngle)));
-            float upy=(float) Math.cos(Math.toRadians(xAngle));
-            float upz=-(float) Math.sin(Math.toRadians(xAngle));
-            MatrixState.setCamera(0, cy, cz, 0, 0, 0, 0, upy, upz);           
+ 
+            
+//            float sunx=(float)(Math.cos(Math.toRadians(yAngle))*100);
+//            float sunz=-(float)(Math.sin(Math.toRadians(yAngle))*100);
+//            MatrixState.setLightLocationSun(sunx,5,sunz);  
+//            
+//            //触控纵向位移摄像机绕x轴旋转 -90～+90
+//            float dy = y - mPreviousY;//计算触控笔Y位移 
+//            xAngle += dy * TOUCH_SCALE_FACTOR;//设置太阳绕y轴旋转的角度
+//            if(xAngle>90)
+//            {
+//            	xAngle=90;
+//            }
+//            else if(xAngle<-90)
+//            {
+//            	xAngle=-90;
+//            }
+//            float cy=(float) (7.2*Math.sin(Math.toRadians(xAngle)));
+//            float cz=(float) (7.2*Math.cos(Math.toRadians(xAngle)));
+//            float upy=(float) Math.cos(Math.toRadians(xAngle));
+//            float upz=-(float) Math.sin(Math.toRadians(xAngle));
+//            MatrixState.setCamera(0, cy, cz, 0, 0, 0, 0, upy, upz);           
         }
         mPreviousX = x;//记录触控笔位置
         mPreviousY = y;
@@ -89,15 +93,17 @@ class MySurfaceView extends GLSurfaceView
             //保护现场
             MatrixState.pushMatrix();
             //地球自转
-            MatrixState.rotate(eAngle, 0, 1, 0);
+//            MatrixState.rotate(eAngle, 0, 1, 0);
         	//绘制纹理圆球
+            MatrixState.rotate(yAngle, 0, 1, 0);
+            MatrixState.rotate(xAngle, 1, 0, 0);
             earth.drawSelf(textureIdEarth,textureIdEarthNight);     
-            //推坐标系到月球位置            
-            MatrixState.transtate(2f, 0, 0);  
-            //月球自转     
-            MatrixState.rotate(eAngle, 0, 1, 0);
-            //绘制月球
-            moon.drawSelf(textureIdMoon);
+//            //推坐标系到月球位置            
+//            MatrixState.transtate(2f, 0, 0);  
+//            //月球自转     
+//            MatrixState.rotate(eAngle, 0, 1, 0);
+//            //绘制月球
+//            moon.drawSelf(textureIdMoon);
             //恢复现场
             MatrixState.popMatrix();
             
