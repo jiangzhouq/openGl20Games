@@ -24,7 +24,7 @@ void pointLight(					//定位光光照计算的方法
 ){
   ambient=lightAmbient;			//直接得出环境光的最终强度  
   vec3 normalTarget=aPosition+normal;	//计算变换后的法向量
-  vec3 newNormal=(uMMatrix*vec4(normalTarget,1)).xyz-(uMMatrix*vec4(aPosition,1)).xyz;
+  vec3 newNormal=(uMMatrix*vec4(aPosition,1)).xyz - (uMMatrix*vec4(normalTarget,1)).xyz;
   newNormal=normalize(newNormal); 	//对法向量规格化
   //计算从表面点到摄像机的向量
   vec3 eye= normalize(uCamera-(uMMatrix*vec4(aPosition,1)).xyz);  

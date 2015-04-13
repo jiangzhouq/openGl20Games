@@ -30,14 +30,12 @@ public class MyActivity extends Activity {
     protected void onResume() {
         super.onResume();
         mGLSurfaceView.onResume();
-        Constant.threadFlag=true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mGLSurfaceView.onPause();
-        Constant.threadFlag=false;
     }    
 }
 
